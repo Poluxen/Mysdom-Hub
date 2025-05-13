@@ -1,74 +1,60 @@
--- Definindo a chave correta
-local correctKey = "MysdomKey123"  -- Altere para sua chave desejada
+-- Carregar o Vape UI
+local Vape = loadstring(game:HttpGet("https://pastebin.com/raw/ZhqYgXPC"))()
 
--- Criando a GUI simples para a entrada de chave
-local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = game.Players.LocalPlayer.PlayerGui
+-- Chave correta
+local correctKey = "OSimãoÉUmPaneleiro"  -- Altere para sua chave real
 
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 400, 0, 200)
-frame.Position = UDim2.new(0.5, -200, 0.5, -100)
-frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-frame.Parent = screenGui
+-- Criar a janela de interface gráfica usando o Vape UI
+local Window = Vape:CreateWindow({
+    Name = "🔐 Mysdom Hub - Key Validation",
+    LoadingTitle = "Verifying key...",
+    LoadingSubtitle = "Powered by Mysdom",
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = "MysdomHub",
+        FileName = "KeyConfig"
+    },
+    Discord = {
+        Enabled = false,
+    },
+    KeySystem = false
+})
 
-local title = Instance.new("TextLabel")
-title.Size = UDim2.new(1, 0, 0, 50)
-title.Position = UDim2.new(0, 0, 0, 0)
-title.Text = "Enter Access Key"
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.TextScaled = true
-title.BackgroundTransparency = 1
-title.Parent = frame
+-- Criar uma aba para a entrada de chave
+local keyTab = Window:CreateTab("Enter Key", 4483362458)
 
-local keyInput = Instance.new("TextBox")
-keyInput.Size = UDim2.new(0, 300, 0, 50)
-keyInput.Position = UDim2.new(0.5, -150, 0, 60)
-keyInput.PlaceholderText = "Enter your key"
-keyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
-keyInput.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-keyInput.ClearTextOnFocus = false
-keyInput.Parent = frame
+-- Criar campo de entrada para a chave
+keyTab:CreateInput({
+    Name = "Insert your key",
+    PlaceholderText = "Enter your access key here...",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(userInput)
+        -- Verifica se a chave inserida é a correta
+        if userInput == correctKey then
+            Vape:Notify({
+                Title = "✅ Access Granted",
+                Content = "Welcome to Mysdom Hub!",
+                Duration = 3
+            })
 
-local submitButton = Instance.new("TextButton")
-submitButton.Size = UDim2.new(0, 150, 0, 50)
-submitButton.Position = UDim2.new(0.5, -75, 0, 130)
-submitButton.Text = "Submit"
-submitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-submitButton.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
-submitButton.Parent = frame
+            -- Espera 2 segundos para fechar a interface
+            wait(2)
+            game:GetService("CoreGui"):FindFirstChild("Vape"):Destroy()
 
--- Função para verificar a chave
-local function verifyKey()
-    local userInput = keyInput.Text
-    if userInput == correctKey then
-        -- Key is correct
-        local successMessage = Instance.new("TextLabel")
-        successMessage.Size = UDim2.new(0, 300, 0, 50)
-        successMessage.Position = UDim2.new(0.5, -150, 0, 60)
-        successMessage.Text = "✅ Access Granted!"
-        successMessage.TextColor3 = Color3.fromRGB(0, 255, 0)
-        successMessage.TextScaled = true
-        successMessage.BackgroundTransparency = 1
-        successMessage.Parent = frame
-
-        -- Espera 2 segundos e fecha a GUI
-        wait(2)
-        screenGui:Destroy()
-
-        -- Aqui você pode colocar a lógica para carregar outros scripts, se necessário
-        -- Por exemplo, loadstring(game:HttpGet("URL_DO_SCRIPT_AQUI"))()
-    else
-        -- Key is incorrect
-        local errorMessage = Instance.new("TextLabel")
-        errorMessage.Size = UDim2.new(0, 300, 0, 50)
-        errorMessage.Position = UDim2.new(0.5, -150, 0, 60)
-        errorMessage.Text = "❌ Invalid Key! Try again."
-        errorMessage.TextColor3 = Color3.fromRGB(255, 0, 0)
-        errorMessage.TextScaled = true
-        errorMessage.BackgroundTransparency = 1
-        errorMessage.Parent = frame
+            -- Aqui você pode adicionar a lógica para carregar o script específico para o jogo
+            -- Exemplo de carregar o script para Arise Crossover (ID do jogo: 87039211657390)
+            if game.PlaceId == 87039211657390 then
+                local ariseScriptURL = "https://raw.githubusercontent.com/poluxen/Mysdom-Hub/main/scripts/arise.lua"
+                loadstring(game:HttpGet(ariseScriptURL))()
+            else
+                warn("[Mysdom Hub] Unsupported game or not added yet.")
+            end
+        else
+            Vape:Notify({
+                Title = "❌ Invalid Key",
+                Content = "Please enter a valid key.",
+                Duration = 3
+            })
+        end
     end
-end
-
--- Conectar o botão à função de verificação da chave
-submitButton.MouseButton1Click:Connect(verifyKey)
+})
