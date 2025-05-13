@@ -7,9 +7,9 @@ local ariseScriptURL = "https://raw.githubusercontent.com/poluxen/Mysdom-Hub/mai
 
 -- Create Key Window
 local keyWindow = Rayfield:CreateWindow({
-    Name = "Mysdom Hub - Key System",
+    Name = "🔐 Mysdom Hub - Key System",
     LoadingTitle = "Checking key...",
-    LoadingSubtitle = "Powered by poluxen",
+    LoadingSubtitle = "Powered by Mysdom",
     ConfigurationSaving = {
         Enabled = true,
         FolderName = "MysdomHub",
@@ -30,7 +30,7 @@ keyTab:CreateInput({
     Callback = function(userInput)
         if userInput == correctKey then
             Rayfield:Notify({
-                Title = "Access Granted",
+                Title = "✅ Access Granted",
                 Content = "Welcome to Mysdom Hub!",
                 Duration = 3
             })
@@ -46,7 +46,7 @@ keyTab:CreateInput({
             end
         else
             Rayfield:Notify({
-                Title = "Invalid Key",
+                Title = "❌ Invalid Key",
                 Content = "Please enter a valid key.",
                 Duration = 3
             })
