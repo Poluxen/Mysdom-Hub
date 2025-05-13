@@ -1,5 +1,5 @@
 -- Mysdom Hub Main Script - Key + Game Auto Detection
-local Rayfield = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Rayfield/main/source"))()
+
 
 -- SETTINGS
 local correctKey = "OSimãoÉUmGandaPaneleiro" -- Change this to your preferred key
